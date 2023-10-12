@@ -4,7 +4,13 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  async function get_data() {
 
+    const result = await fetch("http://127.0.0.1:8000/tonedetection/test/")
+    const  json = await result.json()
+    console.log(json) 
+  }
+  get_data()
   return (
     <div className="App">
       <div>
