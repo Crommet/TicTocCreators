@@ -1,12 +1,10 @@
-import { Card, Grid, styled, useTheme } from '@mui/material';
+import { Card, Grid, styled, useTheme, Fab, Icon } from '@mui/material';
 import { Fragment } from 'react';
-import Campaigns from './shared/Campaigns';
 import DoughnutChart from './shared/Doughnut';
-import RowCards from './shared/RowCards';
-import StatCards from './shared/StatCards';
 import StatCards2 from './shared/StatCards2';
 import TopSellingTable from './shared/TopSellingTable';
 import LineChart from '../charts/echarts/LineChart';
+import AppButton from '../material-kit/buttons/AppButton';
 
 const ContentBox = styled('div')(({ theme }) => ({
   margin: '30px',
@@ -40,8 +38,6 @@ const Analytics = () => {
     <Fragment>
       <ContentBox className="analytics">
         <Card/>
-
-        <LineChart height = "200px" color={[palette.primary.dark, palette.primary.main, palette.primary.light]}/>
         <br></br>
         <Grid container spacing={3}>
           <Grid item lg={8} md={8} sm={12} xs={12}>

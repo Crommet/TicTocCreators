@@ -16,11 +16,24 @@ def connection_test(request):
 def get_videos(request):
    url = "https://tiktok-video-feature-summary.p.rapidapi.com/user/posts"
 
-   querystring = {"unique_id":"kristel99999", "count":"10", "cursor":"0"}
    headers = {
-	    "X-RapidAPI-Key": "",
+	    "X-RapidAPI-Key": "af72565aebmsh3bb3632f1bd0181p1b4916jsn03285cfb2249",
 	    "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com"
     }
    
-   response = requests.get(url, headers=headers, params=querystring)   
-   return JsonResponse(response.json())
+   videos = []
+   
+   hasMore = True
+   cursor = "0"
+   
+   while hasMore:
+        params = {"unique_id": "kristel99999", "count": "35", "cursor": cursor}
+        response = requests.get(url, headers=headers, params=params) 
+        json = response.json()
+
+        videos += json["data"]["videos"]
+
+        hasMore = json["data"]["hasMore"]
+        cursor = json["data"]["cursor"]
+
+   return JsonResponse({"data": {"videos": videos}})

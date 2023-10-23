@@ -24,9 +24,8 @@ const Brand = ({ children }) => {
   return (
     <BrandRoot>
       <Box display="flex" alignItems="center">
-        <MatxLogo />
         <StyledSpan mode={mode} className="sidenavHoverShow">
-          Matx
+          TiktokCreators
         </StyledSpan>
       </Box>
 
