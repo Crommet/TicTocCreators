@@ -12,22 +12,18 @@ def index(request):
 def connection_test(request):
     return JsonResponse({"message": "Hellow Planet"})
 
-@csrf_exempt
-def get_videos(request):
-   url = "https://tiktok-video-feature-summary.p.rapidapi.com/user/posts"
-
-   headers = {
+def get_user_videos(user):
+    url = "https://tiktok-video-feature-summary.p.rapidapi.com/user/posts"
+    headers = {
 	    "X-RapidAPI-Key": "af72565aebmsh3bb3632f1bd0181p1b4916jsn03285cfb2249",
 	    "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com"
     }
-   
-   videos = []
-   
-   hasMore = True
-   cursor = "0"
-   
-   while hasMore:
-        params = {"unique_id": "kristel99999", "count": "35", "cursor": cursor}
+    videos = []
+    hasMore = True
+    cursor = "0"
+
+    while hasMore:
+        params = {"unique_id": user, "count": "35", "cursor": cursor}
         response = requests.get(url, headers=headers, params=params) 
         json = response.json()
 
@@ -35,5 +31,10 @@ def get_videos(request):
 
         hasMore = json["data"]["hasMore"]
         cursor = json["data"]["cursor"]
+        
+    return videos
 
-   return JsonResponse({"data": {"videos": videos}})
+
+@csrf_exempt
+def get_videos(request):
+   return JsonResponse({"data": {"videos": get_user_videos("kristel99999")}})
