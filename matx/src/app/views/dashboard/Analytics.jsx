@@ -5,8 +5,9 @@ import DoughnutChart from './shared/Doughnut';
 import RowCards from './shared/RowCards';
 import StatCards from './shared/StatCards';
 import StatCards2 from './shared/StatCards2';
-import TopSellingTable from './shared/TopSellingTable';
+import VideosTable from './shared/VideosTable';
 import LineChart from '../charts/echarts/LineChart';
+import { useEffect, useState } from 'react';
 
 const ContentBox = styled('div')(({ theme }) => ({
   margin: '30px',
@@ -35,7 +36,17 @@ const H4 = styled('h4')(({ theme }) => ({
 
 const Analytics = () => {
   const { palette } = useTheme();
+  const [videos, setVideos] = useState([])
+  async function get_data() {
 
+    const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos/")
+    const  json = await result.json()
+    console.log(json)
+    setVideos(json.data.videos) 
+  }
+  useEffect(() => {
+    get_data()
+  }, [])
   return (
     <Fragment>
       <ContentBox className="analytics">
@@ -45,7 +56,7 @@ const Analytics = () => {
         <br></br>
         <Grid container spacing={3}>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            <TopSellingTable />
+            <VideosTable videos = {videos}/>
             <StatCards2 />
           </Grid>
 

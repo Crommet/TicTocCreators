@@ -56,7 +56,7 @@ const Small = styled('small')(({ bgcolor }) => ({
   boxShadow: '0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24)',
 }));
 
-const TopSellingTable = () => {
+const VideosTable = (props) => {
   const { palette } = useTheme();
   const bgError = palette.error.main;
   const bgPrimary = palette.primary.main;
@@ -92,23 +92,24 @@ const TopSellingTable = () => {
           </TableHead>
 
           <TableBody>
-            {productList.map((product, index) => (
+            {props.videos.map((video, index) => (
               <TableRow key={index} hover>
                 <TableCell colSpan={4} align="left" sx={{ px: 0, textTransform: 'capitalize' }}>
                   <Box display="flex" alignItems="center">
-                    <Avatar src={product.imgUrl} />
-                    <Paragraph sx={{ m: 0, ml: 4 }}>{product.name}</Paragraph>
+                    <Avatar src={video.cover} />
+                    <Paragraph sx={{ m: 0, ml: 4 }}>{video.title}</Paragraph>
                   </Box>
                 </TableCell>
 
                 <TableCell align="left" colSpan={2} sx={{ px: 0, textTransform: 'capitalize' }}>
-                  {product.plays}
+                  {video.play_count}
                 </TableCell>
 
                 <TableCell sx={{ px: 0 }} align="left" colSpan={2}>
-                  {product.sentiment.includes("happy") && <Small bgcolor="#228B22">Happy</Small>}
+                <Small bgcolor="#228B22">Happy</Small>
+                  {/* {product.sentiment.includes("happy") && <Small bgcolor="#228B22">Happy</Small>}
                   {product.sentiment.includes("surprised") && <Small bgcolor={bgSecondary}>Surprised</Small>}
-                  {product.sentiment.includes("afraid") && <Small bgcolor={bgError}>Worried</Small>}
+                  {product.sentiment.includes("afraid") && <Small bgcolor={bgError}>Worried</Small>} */}
                 </TableCell>
 
                 <TableCell sx={{ px: 0 }} colSpan={1}>
@@ -125,37 +126,4 @@ const TopSellingTable = () => {
   );
 };
 
-const productList = [
-  {
-    imgUrl: '/assets/images/tiktok.png',
-    name: 'Video 1',
-    plays: '1.3M',
-    sentiment: ["happy", "surprised"],
-  },
-  {
-    imgUrl: '/assets/images/tiktok.png',
-    name: 'Video 2',
-    plays: "4.5M",
-    sentiment: ["happy"],
-  },
-  {
-    imgUrl: '/assets/images/tiktok.png',
-    name: 'Video 3',
-    plays: "3.1M",
-    sentiment: ["afraid", "surprised"],
-  },
-  {
-    imgUrl: '/assets/images/tiktok.png',
-    name: 'Video 4',
-    plays: "2.4M",
-    sentiment: ["happy"],
-  },
-  {
-    imgUrl: '/assets/images/tiktok.png',
-    name: 'Video 5',
-    plays: "3.3M",
-    sentiment: ["happy", "surprised"],
-  },
-];
-
-export default TopSellingTable;
+export default VideosTable;
