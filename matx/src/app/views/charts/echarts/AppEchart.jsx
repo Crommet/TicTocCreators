@@ -4,7 +4,7 @@ import SimpleCard from 'app/components/SimpleCard';
 import AreaChart from './AreaChart';
 import ComparisonChart from './ComparisonChart';
 import DoughnutChart from './Doughnut';
-import LineChart from './LineChart';
+import LineChart from '../../dashboard/shared/LineChart';
 
 const Container = styled('div')(({ theme }) => ({
   margin: '30px',

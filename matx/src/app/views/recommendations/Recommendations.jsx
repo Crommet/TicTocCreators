@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import DoughnutChart from './shared/Doughnut';
 import StatCards2 from './shared/StatCards2';
 import TopSellingTable from './shared/TopSellingTable';
-import LineChart from '../charts/echarts/LineChart';
+import LineChart from '../dashboard/shared/LineChart';
 import AppButton from '../material-kit/buttons/AppButton';
 
 const ContentBox = styled('div')(({ theme }) => ({

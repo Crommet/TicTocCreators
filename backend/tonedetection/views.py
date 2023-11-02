@@ -15,7 +15,7 @@ def connection_test(request):
 def get_user_videos(user):
     url = "https://tiktok-video-feature-summary.p.rapidapi.com/user/posts"
     headers = {
-	    "X-RapidAPI-Key": "1dcfb7db2emsh50b921e1a493db9p148ee0jsn89fbae24ecea",
+	    "X-RapidAPI-Key": "fe1c5b412fmshfe27953d8668e94p163898jsne4bfad388baf",
 	    "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com"
     }
     videos = []

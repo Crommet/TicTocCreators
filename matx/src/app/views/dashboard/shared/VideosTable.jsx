@@ -67,7 +67,7 @@ const VideosTable = (props) => {
       <CardHeader>
         <Title>recent videos</Title>
         <Select size="small" defaultValue="this_month">
-          <MenuItem value="this_month">This Month</MenuItem>
+          <MenuItem value="this_month">All</MenuItem>
           <MenuItem value="last_month">Last Month</MenuItem>
         </Select>
       </CardHeader>
@@ -77,13 +77,13 @@ const VideosTable = (props) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ px: 3 }} colSpan={4}>
-                Name
+                Video
               </TableCell>
               <TableCell sx={{ px: 0 }} colSpan={2}>
                 Plays
               </TableCell>
               <TableCell sx={{ px: 0 }} colSpan={2}>
-                Sentiment
+                Date
               </TableCell>
               <TableCell sx={{ px: 0 }} colSpan={1}>
                 Action
@@ -97,7 +97,10 @@ const VideosTable = (props) => {
                 <TableCell colSpan={4} align="left" sx={{ px: 0, textTransform: 'capitalize' }}>
                   <Box display="flex" alignItems="center">
                     <Avatar src={video.cover} />
-                    <Paragraph sx={{ m: 0, ml: 4 }}>{video.title}</Paragraph>
+                    <a href={`https://www.tiktok.com/@kristel99999/video/${video.video_id}`}>
+                    <Paragraph sx={{ m: 0, ml: 4 }}>{video.title?.split("\#")[0]}</Paragraph>
+                    </a>
+                    
                   </Box>
                 </TableCell>
 
@@ -106,10 +109,8 @@ const VideosTable = (props) => {
                 </TableCell>
 
                 <TableCell sx={{ px: 0 }} align="left" colSpan={2}>
-                <Small bgcolor="#228B22">Happy</Small>
-                  {/* {product.sentiment.includes("happy") && <Small bgcolor="#228B22">Happy</Small>}
-                  {product.sentiment.includes("surprised") && <Small bgcolor={bgSecondary}>Surprised</Small>}
-                  {product.sentiment.includes("afraid") && <Small bgcolor={bgError}>Worried</Small>} */}
+                  
+                {new Date(video.create_time * 1000).toDateString()}
                 </TableCell>
 
                 <TableCell sx={{ px: 0 }} colSpan={1}>
@@ -118,6 +119,7 @@ const VideosTable = (props) => {
                   </IconButton>
                 </TableCell>
               </TableRow>
+              
             ))}
           </TableBody>
         </ProductTable>

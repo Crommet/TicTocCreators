@@ -48,22 +48,38 @@ const StatCards2 = () => {
   const bgError = lighten(palette.error.main, 0.85);
 
   return (
-    <Grid container spacing={3} sx={{ mb: 3 }}>
-      <Grid item xs={1} md={6}>
+    <Grid container spacing = {2}>
+      <Grid item md={6}>
         <Card elevation={3} sx={{ p: 1 }}>
           <ContentBox>
             <FabIcon size="medium" sx={{ background: 'rgba(9, 182, 109, 0.15)' }}>
               <Icon sx={{ color: '#08ad6c' }}>trending_up</Icon>
             </FabIcon>
-            <H3 textcolor={'#08ad6c'}>Active Users</H3>
+            <H3 textcolor={'#08ad6c'}>Followers</H3>
           </ContentBox>
 
           <ContentBox sx={{ pt: 2 }}>
-            <H1>10.8k</H1>
+            <H1>67.8k</H1>
             <IconBox sx={{ background: 'rgba(9, 182, 109, 0.15)' }}>
               <Icon className="icon">expand_less</Icon>
             </IconBox>
-            <Span textcolor={'#08ad6c'}>(+21%)</Span>
+          </ContentBox>
+        </Card>
+      </Grid>
+      <Grid item  md={6}>
+        <Card elevation={3} sx={{ p: 1 }}>
+          <ContentBox>
+            <FabIcon size="medium" sx={{ background: 'rgba(9, 182, 109, 0.15)' }}>
+              <Icon sx={{ color: '#08ad6c' }}>trending_up</Icon>
+            </FabIcon>
+            <H3 textcolor={'#08ad6c'}>Total Likes</H3>
+          </ContentBox>
+
+          <ContentBox sx={{ pt: 2 }}>
+            <H1>2.9M</H1>
+            <IconBox sx={{ background: 'rgba(9, 182, 109, 0.15)' }}>
+              <Icon className="icon">expand_less</Icon>
+            </IconBox>
           </ContentBox>
         </Card>
       </Grid>
