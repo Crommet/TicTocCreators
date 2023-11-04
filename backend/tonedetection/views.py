@@ -15,29 +15,30 @@ def connection_test(request):
     return JsonResponse({"message": "Hellow Planet"})
 
 
-def get_user_videos(user):
+def get_user_videos(user, cursor = "0"):
     url = "https://tiktok-video-feature-summary.p.rapidapi.com/user/posts"
     headers = {
-        "X-RapidAPI-Key": "",
+        "X-RapidAPI-Key": "fe1c5b412fmshfe27953d8668e94p163898jsne4bfad388baf",
         "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com"
     }
     videos = []
     hasMore = True
-    cursor = "0"
+    
 
-    while hasMore:
-        params = {"unique_id": user, "count": "35", "cursor": cursor}
-        response = requests.get(url, headers=headers, params=params)
-        json = response.json()
+    params = {"unique_id": user, "count": "35", "cursor": cursor}
+    response = requests.get(url, headers=headers, params=params)
+    json = response.json()
 
-        videos += json["data"]["videos"]
+    videos += json["data"]["videos"]
 
-        hasMore = json["data"]["hasMore"]
-        cursor = json["data"]["cursor"]
+    hasMore = json["data"]["hasMore"]
+    cursor = json["data"]["cursor"]
 
-    return videos
+    return videos, hasMore, cursor
 
 
 @csrf_exempt
 def get_videos(request):
-    return JsonResponse({"data": {"videos": get_user_videos("kristel99999")}})
+    videos, hasMore, cursor = get_user_videos("kristel99999", request.GET["cursor"])
+    return JsonResponse({"data": {"videos": videos, "hasMore": hasMore, "cursor": cursor}})
+    

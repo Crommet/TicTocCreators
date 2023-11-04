@@ -39,11 +39,24 @@ const Analytics = () => {
   const [videos, setVideos] = useState([])
   async function get_data() {
 
-    const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos/")
-    const  json = await result.json()
-    console.log(json)
-    setVideos(json.data.videos.sort((a, b) => b.create_time - a.create_time)) 
+    
+    let hasMore = true
+    let cursor = "0"
+    while  (hasMore) {
+      const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos/?cursor=" + cursor);
+      const json = await result.json()
+      const allVideos = videos.concat(json.data.videos)  
+      console.log(allVideos)
+      const sortedVideos = allVideos.sort((a, b) => b.create_time - a.create_time)
+      setVideos(sortedVideos)
+      hasMore = Boolean(json.data.hasMore)
+      cursor = json.data.cursor
+
+    } 
+    
   }
+  console.log(videos)
+
   useEffect(() => {
     get_data()
   }, [])
