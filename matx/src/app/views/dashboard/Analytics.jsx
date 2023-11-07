@@ -1,9 +1,5 @@
 import { Card, Grid, styled, useTheme } from '@mui/material';
 import { Fragment } from 'react';
-import Campaigns from './shared/Campaigns';
-import DoughnutChart from './shared/Doughnut';
-import RowCards from './shared/RowCards';
-import StatCards from './shared/StatCards';
 import StatCards2 from './shared/StatCards2';
 import VideosTable from './shared/VideosTable';
 import LineChart from './shared/LineChart';
@@ -38,24 +34,21 @@ const Analytics = () => {
   const { palette } = useTheme();
   const [videos, setVideos] = useState([])
   async function get_data() {
-
-    
     let hasMore = true
     let cursor = "0"
+    let vids = [];
+
     while  (hasMore) {
-      const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos/?cursor=" + cursor);
+      const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos?" + new URLSearchParams({cursor}));
       const json = await result.json()
-      const allVideos = videos.concat(json.data.videos)  
-      console.log(allVideos)
-      const sortedVideos = allVideos.sort((a, b) => b.create_time - a.create_time)
-      setVideos(sortedVideos)
+      vids = [...vids, ...json.data.videos]
+      const sortedVideos = vids.sort((a, b) => b.create_time - a.create_time)
+      setVideos([...sortedVideos]); 
       hasMore = Boolean(json.data.hasMore)
       cursor = json.data.cursor
-
     } 
-    
+
   }
-  console.log(videos)
 
   useEffect(() => {
     get_data()
