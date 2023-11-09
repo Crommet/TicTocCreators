@@ -16,6 +16,8 @@ const ForgotPassword = Loadable(lazy(() => import('app/views/sessions/ForgotPass
 const Recommendations = Loadable(lazy(() => import('app/views/recommendations/Recommendations')));
 
 // dashboard page
+const MainApp = Loadable(lazy(() => import('app/views/MainApp')));
+
 const Analytics = Loadable(lazy(() => import('app/views/dashboard/Analytics')));
 
 const routes = [
@@ -37,6 +39,11 @@ const routes = [
         path: '/recommendations',
         element: <Recommendations />,
         auth: authRoles.admin
+      },
+      {
+        path: '/',
+        element: <MainApp />,
+        auth: authRoles.admin
       }
     ]
   },
@@ -47,7 +54,6 @@ const routes = [
   { path: '/session/signup', element: <JwtRegister /> },
   { path: '/session/forgot-password', element: <ForgotPassword /> },
 
-  { path: '/', element: <Navigate to="dashboard" /> },
   { path: '*', element: <NotFound /> }
 ];
 
