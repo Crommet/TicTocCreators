@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import { Paragraph } from 'app/components/Typography';
 import { bg } from 'date-fns/locale';
+import { useState } from 'react';
 
 const CardHeader = styled(Box)(() => ({
   display: 'flex',
@@ -56,6 +57,50 @@ const Small = styled('small')(({ bgcolor }) => ({
   boxShadow: '0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24)',
 }));
 
+
+const Video = ({video, index}) => {
+  const [popupOpen, setPopupOpen] = useState(false); // popup starts out closed
+
+  // popupOpen = true; - python / regular javascript implementation (DO NOT USE THIS)
+  // setPopupOpen(true); - react implementation (USE THIS)
+
+  function openPopup() {
+    setPopupOpen(true);
+  }
+
+  // this is the kind of setup that you might come across
+  // <Popup isOpen = {popupOpen} onClose = {() => setPopupOpen(false)}/>
+
+  return (
+    <TableRow key={index} hover>
+      <TableCell colSpan={4} align="left" sx={{ px: 0, textTransform: 'capitalize' }}>
+          <Box display="flex" alignItems="center">
+              <Avatar src={video.cover} />
+              <a href={`https://www.tiktok.com/@kristel99999/video/${video.video_id}`}>
+                <Paragraph sx={{ m: 0, ml: 4 }}>{video.title?.split("\#")[0]}</Paragraph>
+              </a>
+                    
+          </Box>
+      </TableCell>
+
+      <TableCell align="left" colSpan={2} sx={{ px: 0, textTransform: 'capitalize' }}>
+        {video.play_count}
+      </TableCell>
+
+      <TableCell sx={{ px: 0 }} align="left" colSpan={2}>
+        
+      {new Date(video.create_time * 1000).toDateString()}
+      </TableCell>
+
+      <TableCell sx={{ px: 0 }} colSpan={1}>
+        <IconButton onClick = {() => openPopup()}>
+          <Icon color="primary">expand</Icon>
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  )        
+}
+
 const VideosTable = (props) => {
   const { palette } = useTheme();
   const bgError = palette.error.main;
@@ -92,35 +137,7 @@ const VideosTable = (props) => {
           </TableHead>
 
           <TableBody>
-            {props.videos.map((video, index) => (
-              <TableRow key={index} hover>
-                <TableCell colSpan={4} align="left" sx={{ px: 0, textTransform: 'capitalize' }}>
-                  <Box display="flex" alignItems="center">
-                    <Avatar src={video.cover} />
-                    <a href={`https://www.tiktok.com/@kristel99999/video/${video.video_id}`}>
-                    <Paragraph sx={{ m: 0, ml: 4 }}>{video.title?.split("\#")[0]}</Paragraph>
-                    </a>
-                    
-                  </Box>
-                </TableCell>
-
-                <TableCell align="left" colSpan={2} sx={{ px: 0, textTransform: 'capitalize' }}>
-                  {video.play_count}
-                </TableCell>
-
-                <TableCell sx={{ px: 0 }} align="left" colSpan={2}>
-                  
-                {new Date(video.create_time * 1000).toDateString()}
-                </TableCell>
-
-                <TableCell sx={{ px: 0 }} colSpan={1}>
-                  <IconButton>
-                    <Icon color="primary">expand</Icon>
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-              
-            ))}
+            {props.videos.map((video, index) => <Video video={video} index={index}/>)}
           </TableBody>
         </ProductTable>
       </Box>
