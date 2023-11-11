@@ -1,4 +1,4 @@
-import { Card, Fab, Grid, Icon, lighten, styled, useTheme } from '@mui/material';
+import { Card, Fab, Grid, Icon, lighten, styled, useTheme, Box } from '@mui/material';
 
 const ContentBox = styled('div')(() => ({
   display: 'flex',
@@ -52,18 +52,21 @@ const StatCards2 = () => {
       <Grid item xs={1} md={6}>
         <Card elevation={3} sx={{ p: 1 }}>
           <ContentBox>
-            <FabIcon size="medium" sx={{ background: 'rgba(9, 182, 109, 0.15)' }}>
-              <Icon sx={{ color: '#08ad6c' }}>trending_up</Icon>
-            </FabIcon>
-            <H3 textcolor={'#08ad6c'}>Active Users</H3>
+            <H1 textcolor={'#08ad6c'}>Video Title</H1>
           </ContentBox>
-
+          <Box
+  component="img"
+  sx={{
+   
+    maxHeight: { xs: 233, md: 167 },
+    maxWidth: { xs: 350, md: 250 },
+  }}
+  alt="The house from the offer."
+  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+/>
           <ContentBox sx={{ pt: 2 }}>
             <H1>10.8k</H1>
-            <IconBox sx={{ background: 'rgba(9, 182, 109, 0.15)' }}>
-              <Icon className="icon">expand_less</Icon>
-            </IconBox>
-            <Span textcolor={'#08ad6c'}>(+21%)</Span>
+            
           </ContentBox>
         </Card>
       </Grid>

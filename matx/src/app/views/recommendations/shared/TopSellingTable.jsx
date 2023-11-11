@@ -65,10 +65,11 @@ const TopSellingTable = () => {
   return (
     <Card elevation={3} sx={{ pt: '20px', mb: 3 }}>
       <CardHeader>
-        <Title>recent videos</Title>
+        <Title>Video recommendations</Title>
         <Select size="small" defaultValue="this_month">
           <MenuItem value="this_month">This Month</MenuItem>
           <MenuItem value="last_month">Last Month</MenuItem>
+          <MenuItem value="last_year">Last Year</MenuItem>
         </Select>
       </CardHeader>
 
@@ -77,10 +78,10 @@ const TopSellingTable = () => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ px: 3 }} colSpan={4}>
-                Name
+                Videos
               </TableCell>
               <TableCell sx={{ px: 0 }} colSpan={2}>
-                Plays
+                Views
               </TableCell>
               <TableCell sx={{ px: 0 }} colSpan={2}>
                 Sentiment
