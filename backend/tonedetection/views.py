@@ -3,38 +3,42 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests
 
+
 def index(request):
     return HttpResponse("Hello, world.")
 
 # Create your views here.
 
+
 @csrf_exempt
 def connection_test(request):
     return JsonResponse({"message": "Hellow Planet"})
 
-def get_user_videos(user):
+
+def get_user_videos(user, cursor = "0"):
     url = "https://tiktok-video-feature-summary.p.rapidapi.com/user/posts"
     headers = {
-	    "X-RapidAPI-Key": "1dcfb7db2emsh50b921e1a493db9p148ee0jsn89fbae24ecea",
-	    "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com"
+        "X-RapidAPI-Key": "fe1c5b412fmshfe27953d8668e94p163898jsne4bfad388baf",
+        "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com"
     }
     videos = []
     hasMore = True
-    cursor = "0"
+    
 
-    while hasMore:
-        params = {"unique_id": user, "count": "35", "cursor": cursor}
-        response = requests.get(url, headers=headers, params=params) 
-        json = response.json()
+    params = {"unique_id": user, "count": "35", "cursor": cursor}
+    response = requests.get(url, headers=headers, params=params)
+    json = response.json()
 
-        videos += json["data"]["videos"]
+    videos += json["data"]["videos"]
 
-        hasMore = json["data"]["hasMore"]
-        cursor = json["data"]["cursor"]
-        
-    return videos
+    hasMore = json["data"]["hasMore"]
+    cursor = json["data"]["cursor"]
+
+    return videos, hasMore, cursor
 
 
 @csrf_exempt
 def get_videos(request):
-   return JsonResponse({"data": {"videos": get_user_videos("kristel99999")}})
+    videos, hasMore, cursor = get_user_videos("kristel99999", request.GET["cursor"])
+    return JsonResponse({"data": {"videos": videos, "hasMore": hasMore, "cursor": cursor}})
+    

@@ -1,12 +1,8 @@
 import { Card, Grid, styled, useTheme } from '@mui/material';
 import { Fragment } from 'react';
-import Campaigns from './shared/Campaigns';
-import DoughnutChart from './shared/Doughnut';
-import RowCards from './shared/RowCards';
-import StatCards from './shared/StatCards';
 import StatCards2 from './shared/StatCards2';
 import VideosTable from './shared/VideosTable';
-import LineChart from '../charts/echarts/LineChart';
+import LineChart from './shared/LineChart';
 import { useEffect, useState } from 'react';
 
 const ContentBox = styled('div')(({ theme }) => ({
@@ -38,12 +34,22 @@ const Analytics = () => {
   const { palette } = useTheme();
   const [videos, setVideos] = useState([])
   async function get_data() {
+    let hasMore = true
+    let cursor = "0"
+    let vids = [];
 
-    const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos/")
-    const  json = await result.json()
-    console.log(json)
-    setVideos(json.data.videos) 
+    while  (hasMore) {
+      const result = await fetch("http://127.0.0.1:8000/tonedetection/getvideos?" + new URLSearchParams({cursor}));
+      const json = await result.json()
+      vids = [...vids, ...json.data.videos]
+      const sortedVideos = vids.sort((a, b) => b.create_time - a.create_time)
+      setVideos([...sortedVideos]); 
+      hasMore = Boolean(json.data.hasMore)
+      cursor = json.data.cursor
+    } 
+
   }
+
   useEffect(() => {
     get_data()
   }, [])
@@ -52,24 +58,16 @@ const Analytics = () => {
       <ContentBox className="analytics">
         <Card/>
 
-        <LineChart height = "200px" color={[palette.primary.dark, palette.primary.main, palette.primary.light]}/>
+        <LineChart height = "200px" color={[palette.primary.dark, palette.primary.main, palette.primary.light]} videos={videos}/>
         <br></br>
         <Grid container spacing={3}>
           <Grid item lg={8} md={8} sm={12} xs={12}>
             <VideosTable videos = {videos}/>
-            <StatCards2 />
+            
           </Grid>
 
           <Grid item lg={4} md={4} sm={12} xs={12}>
-            <Card sx={{ px: 3, py: 2, mb: 3 }}>
-              <Title>Traffic Sources</Title>
-              <SubTitle>Last 30 days</SubTitle>
-
-              <DoughnutChart
-                height="300px"
-                color={[palette.primary.dark, palette.primary.main, palette.primary.light]}
-              />
-            </Card>
+          <StatCards2 />
           </Grid>
         </Grid>
       </ContentBox>
