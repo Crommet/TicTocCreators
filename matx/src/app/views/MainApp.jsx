@@ -14,7 +14,6 @@ const MainApp = (props) => {
     let vids = [];
 
     while (hasMore) {
-      console.log("fetching...");
       const result = await fetch(url + new URLSearchParams({ cursor }));
       const json = await result.json();
       vids = [...vids, ...json.data.videos];
