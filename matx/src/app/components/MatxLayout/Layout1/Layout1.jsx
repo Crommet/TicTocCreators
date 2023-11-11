@@ -46,7 +46,7 @@ const LayoutContainer = styled(Box)(({ width, open }) => ({
   marginRight: open ? 50 : 0
 }));
 
-const Layout1 = () => {
+const Layout1 = ({setPage}) => {
   const { settings, updateSettings } = useSettings();
   const { layout1Settings, secondarySidebar } = settings;
   const topbarTheme = settings.themes[layout1Settings.topbar.theme];
@@ -88,7 +88,7 @@ const Layout1 = () => {
     <Layout1Root className={layoutClasses}>
       {showSidenav && sidenavMode !== 'close' && (
         <SidenavTheme>
-          <Layout1Sidenav />
+          <Layout1Sidenav setPage={setPage}/>
         </SidenavTheme>
       )}
 
