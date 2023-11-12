@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import { Paragraph } from "app/components/Typography";
 import { useState } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -119,10 +121,14 @@ const VideosTable = (props) => {
     <Card elevation={3} sx={{ pt: "20px", mb: 3 }}>
       <CardHeader>
         <Title>recent videos</Title>
-        <Select size="small" defaultValue="this_month">
-          <MenuItem value="this_month">All</MenuItem>
-          <MenuItem value="last_month">Last Month</MenuItem>
-        </Select>
+        <div>
+          <IconButton onClick={() => props.updateCursor("back")}>
+            <ArrowBackIcon color="primary" />
+          </IconButton>
+          <IconButton onClick={() => props.updateCursor("front")}>
+            <ArrowForwardIcon color="primary" />
+          </IconButton>
+        </div>
       </CardHeader>
 
       <Box overflow="auto">
@@ -145,13 +151,15 @@ const VideosTable = (props) => {
           </TableHead>
 
           <TableBody>
-            {props.videos.map((video, index) => (
-              <Video
-                video={video}
-                index={index}
-                setSelected={props.setSelected}
-              />
-            ))}
+            {props.videos
+              .slice(props.cursor * props.size, (props.cursor + 1) * props.size)
+              .map((video, index) => (
+                <Video
+                  video={video}
+                  index={index}
+                  setSelected={props.setSelected}
+                />
+              ))}
           </TableBody>
         </ProductTable>
       </Box>

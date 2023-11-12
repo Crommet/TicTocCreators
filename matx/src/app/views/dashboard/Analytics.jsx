@@ -37,11 +37,23 @@ const Analytics = ({ videos, user }) => {
   const { palette } = useTheme();
 
   const [data, setData] = useState(null);
+  const [cursor, setCursor] = useState(0);
+  const size = 20;
 
   const updateSelected = async (id) => {
     const response = await fetch(url + new URLSearchParams({ id }));
     const json = await response.json();
     setData(json);
+  };
+
+  const updateCursor = (direction) => {
+    console.log(cursor, videos.length, size, direction);
+    if (direction == "back" && cursor > 0) {
+      setCursor(cursor - 1);
+    }
+    if (direction == "front" && videos.length > size * (cursor - 1)) {
+      setCursor(cursor + 1);
+    }
   };
 
   return (
@@ -61,7 +73,13 @@ const Analytics = ({ videos, user }) => {
         <br></br>
         <Grid container spacing={3}>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            <VideosTable videos={videos} setSelected={updateSelected} />
+            <VideosTable
+              videos={videos}
+              setSelected={updateSelected}
+              cursor={cursor}
+              updateCursor={updateCursor}
+              size={size}
+            />
           </Grid>
 
           <Grid item lg={4} md={4} sm={12} xs={12}>
