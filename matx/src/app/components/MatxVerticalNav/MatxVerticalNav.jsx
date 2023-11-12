@@ -73,7 +73,7 @@ const BadgeValue = styled('div')(() => ({
   borderRadius: '300px',
 }));
 
-const MatxVerticalNav = ({ items }) => {
+const MatxVerticalNav = ({ setPage, items }) => {
   const { settings } = useSettings();
   const { mode } = settings.layout1Settings.leftSidebar;
 
@@ -121,14 +121,9 @@ const MatxVerticalNav = ({ items }) => {
         return (
           <InternalLink key={index}>
             <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                isActive
-                  ? `navItemActive ${mode === 'compact' && 'compactNavItem'}`
-                  : `${mode === 'compact' && 'compactNavItem'}`
-              }
+              className={`${mode === 'compact' && 'compactNavItem'}`}
             >
-              <ButtonBase key={item.name} name="child" sx={{ width: '100%' }}>
+              <ButtonBase key={item.name} name="child" sx={{ width: '100%' }} onClick = {() => setPage(item.name)}>
                 {item?.icon ? (
                   <Icon className="icon" sx={{ width: 36 }}>
                     {item.icon}

@@ -40,7 +40,7 @@ const NavListBox = styled(Box)({
   flexDirection: 'column'
 });
 
-const Layout1Sidenav = () => {
+const Layout1Sidenav = ({setPage}) => {
   const theme = useTheme();
   const { settings, updateSettings } = useSettings();
   const leftSidebar = settings.layout1Settings.leftSidebar;
@@ -79,7 +79,7 @@ const Layout1Sidenav = () => {
             />
           </Hidden>
         </Brand>
-        <Sidenav />
+        <Sidenav setPage={setPage}/>
       </NavListBox>
     </SidebarNavRoot>
   );

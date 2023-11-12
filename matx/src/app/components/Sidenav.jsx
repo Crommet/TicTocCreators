@@ -23,7 +23,7 @@ const SideNavMobile = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: { display: 'none' }
 }));
 
-const Sidenav = ({ children }) => {
+const Sidenav = ({ setPage, children }) => {
   const { settings, updateSettings } = useSettings();
 
   const updateSidebarMode = (sidebarSettings) => {
@@ -46,7 +46,7 @@ const Sidenav = ({ children }) => {
     <Fragment>
       <StyledScrollBar options={{ suppressScrollX: true }}>
         {children}
-        <MatxVerticalNav items={navigations} />
+        <MatxVerticalNav items={navigations} setPage={setPage}/>
       </StyledScrollBar>
 
       <SideNavMobile onClick={() => updateSidebarMode({ mode: 'close' })} />
