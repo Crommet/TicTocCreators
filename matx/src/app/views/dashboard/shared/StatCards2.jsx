@@ -50,7 +50,27 @@ const IconBox = styled("div")(() => ({
   "& .icon": { fontSize: "14px" },
 }));
 
-const StatCards2 = ({ setSelected }) => {
+function nFormatter(num, digits) {
+  if (num === null) return null;
+
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "K" },
+    { value: 1e6, symbol: "M" },
+  ];
+  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var item = lookup
+    .slice()
+    .reverse()
+    .find(function (item) {
+      return num >= item.value;
+    });
+  return item
+    ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
+    : "0";
+}
+
+const StatCards2 = ({ setSelected, user }) => {
   const { palette } = useTheme();
   const textError = palette.error.main;
   const bgError = lighten(palette.error.main, 0.85);
@@ -70,7 +90,9 @@ const StatCards2 = ({ setSelected }) => {
           </ContentBox>
 
           <ContentBox sx={{ pt: 2 }}>
-            <H1>67.8k</H1>
+            <H1>
+              {user ? nFormatter(user.data.stats.followerCount, 1) : "..."}
+            </H1>
             <IconBox sx={{ background: "rgba(9, 182, 109, 0.15)" }}>
               <Icon className="icon">expand_less</Icon>
             </IconBox>
@@ -90,7 +112,49 @@ const StatCards2 = ({ setSelected }) => {
           </ContentBox>
 
           <ContentBox sx={{ pt: 2 }}>
-            <H1>2.9M</H1>
+            <H1>{user ? nFormatter(user.data.stats.heartCount, 1) : "..."}</H1>
+            <IconBox sx={{ background: "rgba(9, 182, 109, 0.15)" }}>
+              <Icon className="icon">expand_less</Icon>
+            </IconBox>
+          </ContentBox>
+        </Card>
+      </Grid>
+      <Grid item md={6}>
+        <Card elevation={3} sx={{ p: 1 }}>
+          <ContentBox>
+            <FabIcon
+              size="medium"
+              sx={{ background: "rgba(9, 182, 109, 0.15)" }}
+            >
+              <Icon sx={{ color: "#08ad6c" }}>trending_up</Icon>
+            </FabIcon>
+            <H3 textcolor={"#08ad6c"}>Video Count</H3>
+          </ContentBox>
+
+          <ContentBox sx={{ pt: 2 }}>
+            <H1>{user ? nFormatter(user.data.stats.videoCount, 1) : "..."}</H1>
+            <IconBox sx={{ background: "rgba(9, 182, 109, 0.15)" }}>
+              <Icon className="icon">expand_less</Icon>
+            </IconBox>
+          </ContentBox>
+        </Card>
+      </Grid>
+      <Grid item md={6}>
+        <Card elevation={3} sx={{ p: 1 }}>
+          <ContentBox>
+            <FabIcon
+              size="medium"
+              sx={{ background: "rgba(9, 182, 109, 0.15)" }}
+            >
+              <Icon sx={{ color: "#08ad6c" }}>trending_up</Icon>
+            </FabIcon>
+            <H3 textcolor={"#08ad6c"}>Following</H3>
+          </ContentBox>
+
+          <ContentBox sx={{ pt: 2 }}>
+            <H1>
+              {user ? nFormatter(user.data.stats.followingCount, 1) : "..."}
+            </H1>
             <IconBox sx={{ background: "rgba(9, 182, 109, 0.15)" }}>
               <Icon className="icon">expand_less</Icon>
             </IconBox>

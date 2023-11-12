@@ -33,7 +33,7 @@ const H4 = styled("h4")(({ theme }) => ({
 
 const url = "http://127.0.0.1:8000/tonedetection/comments?";
 
-const Analytics = ({ videos }) => {
+const Analytics = ({ videos, user }) => {
   const { palette } = useTheme();
 
   const [data, setData] = useState(null);
@@ -65,6 +65,7 @@ const Analytics = ({ videos }) => {
           </Grid>
 
           <Grid item lg={4} md={4} sm={12} xs={12}>
+            <StatCards2 user={user} />
             <DoughnutChart
               height={300}
               data={data}
@@ -75,7 +76,6 @@ const Analytics = ({ videos }) => {
               ]}
             />
             <br />
-            <StatCards2 />
           </Grid>
         </Grid>
       </ContentBox>

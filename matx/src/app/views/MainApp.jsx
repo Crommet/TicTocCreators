@@ -8,6 +8,8 @@ const MainApp = (props) => {
   const page = props.page.toLowerCase();
 
   const [videos, setVideos] = useState([]);
+  const [user, setUser] = useState(null);
+
   async function getVideos() {
     let hasMore = true;
     let cursor = "0";
@@ -24,15 +26,38 @@ const MainApp = (props) => {
     }
   }
 
+  async function getUser() {
+    const userUrl =
+      "https://tiktok-video-feature-summary.p.rapidapi.com/user/info?";
+
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "fe1c5b412fmshfe27953d8668e94p163898jsne4bfad388baf",
+        "X-RapidAPI-Host": "tiktok-video-feature-summary.p.rapidapi.com",
+      },
+    };
+
+    const response = await fetch(
+      userUrl + new URLSearchParams({ unique_id: "kristel99999" }),
+      options
+    );
+
+    const json = await response.json();
+
+    setUser(json);
+  }
+
   useEffect(() => {
     getVideos();
+    getUser();
   }, []);
 
   if (page === "recommendations") {
     return <Recommendations videos={videos} />;
   }
 
-  return <Analytics videos={videos} />;
+  return <Analytics videos={videos} user={user} />;
 };
 
 export default MainApp;
