@@ -47,7 +47,6 @@ const Analytics = ({ videos, user }) => {
   };
 
   const updateCursor = (direction) => {
-    console.log(cursor, videos.length, size, direction);
     if (direction == "back" && cursor > 0) {
       setCursor(cursor - 1);
     }

@@ -18,6 +18,7 @@ import { Paragraph } from "app/components/Typography";
 import { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Dialog from "./Dialog";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -73,6 +74,7 @@ const Video = ({ video, index, setSelected }) => {
 
   return (
     <TableRow key={index} hover>
+      <Dialog open={popupOpen} setOpen={setPopupOpen} />
       <TableCell
         colSpan={4}
         align="left"
@@ -103,7 +105,12 @@ const Video = ({ video, index, setSelected }) => {
       </TableCell>
 
       <TableCell sx={{ px: 0 }} colSpan={1}>
-        <IconButton onClick={() => setSelected(video.video_id)}>
+        <IconButton
+          onClick={() => {
+            openPopup();
+            setSelected(video.video_id);
+          }}
+        >
           <Icon color="primary">expand</Icon>
         </IconButton>
       </TableCell>
