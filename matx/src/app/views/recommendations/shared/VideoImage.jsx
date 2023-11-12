@@ -27,12 +27,12 @@ export default function ComplexGrid() {
     >
       <Grid container spacing={2}>
         <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="Image" src= "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+          <ButtonBase sx={{ width: 100, height: 100 }}>
+            <Img alt="Image" src= "https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/ae3cc911a70b487496875ff7ff1f95f2_1699738188?x-expires=1699826400&x-signature=KUbnypkDJm1hdPoZ3lKebZ4X4cs%3D&s=PUBLISH&se=false&sh=&sc=dynamic_cover&l=2023111122134969FDFCB8066385BF9243"
   component="img"
   sx={{
     height: 128,
-    width: 128,
+    width: 72,
     maxHeight: { xs: 233, md: 167 },
     maxWidth: { xs: 350, md: 250 },
   }}
