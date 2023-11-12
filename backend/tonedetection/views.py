@@ -14,14 +14,18 @@ comments = {
 
 @csrf_exempt
 def analyze_video(request):
+    id = request.GET["id"]
+
     hasMore = True
     cursor = "0"
 
     video_comments = []
 
     while hasMore:
-        response = requests.get(comments["url"], headers=comments["headers"],
-                                params=comments["params"]("7192689619585010950", 50, cursor))
+        params = comments["params"](id, 50, cursor)
+        print(params)
+        response = requests.get(
+            comments["url"], headers=comments["headers"], params=params)
         response = response.json()
 
         video_comments += response["data"]["comments"]
@@ -45,4 +49,26 @@ def analyze_video(request):
 
     response = requests.post(url, data=payload, headers=headers)
 
-    return JsonResponse(response.json()["emotions_normalized"], safe=False)
+    emotions = response.json()["emotions_normalized"]
+    emotions_sum = emotions["fear"] + emotions["sadness"] + emotions["joy"] + \
+        emotions["disgust"] + emotions["anger"] + emotions["surprise"]
+
+    if emotions_sum == 0:
+        emotions_sum = 1
+        emotions = {"joy": 1}
+
+    emotions["other"] = 0
+    deletes = []
+    for key in emotions:
+        emotions[key] = emotions[key] / emotions_sum
+        if (emotions[key] < 0.1 and key != "other"):
+            emotions["other"] += emotions[key]
+            deletes.append(key)
+
+    if emotions["other"] == 0:
+        del emotions["other"]
+
+    for key in deletes:
+        del emotions[key]
+
+    return JsonResponse(emotions, safe=False)

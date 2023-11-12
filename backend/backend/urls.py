@@ -19,4 +19,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path("tonedetection/", include("tonedetection.urls")),
+    path("videos/", include("videos.urls")),
 ]

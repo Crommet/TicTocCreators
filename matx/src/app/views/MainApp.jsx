@@ -2,13 +2,13 @@ import Analytics from "./dashboard/Analytics";
 import Recommendations from "./recommendations/Recommendations";
 import { useEffect, useState } from "react";
 
-const url = "http://127.0.0.1:8000/tonedetection/getvideos?";
+const url = "http://127.0.0.1:8000/videos/getvideos?";
 
 const MainApp = (props) => {
   const page = props.page.toLowerCase();
 
   const [videos, setVideos] = useState([]);
-  async function get_data() {
+  async function getVideos() {
     let hasMore = true;
     let cursor = "0";
     let vids = [];
@@ -25,7 +25,7 @@ const MainApp = (props) => {
   }
 
   useEffect(() => {
-    get_data();
+    getVideos();
   }, []);
 
   if (page === "recommendations") {

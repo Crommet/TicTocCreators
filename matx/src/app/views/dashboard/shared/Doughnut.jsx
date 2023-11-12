@@ -1,103 +1,108 @@
-import React from 'react';
-import { useTheme } from '@mui/material';
-import ReactEcharts from 'echarts-for-react';
+import React from "react";
+import { useTheme } from "@mui/material";
+import ReactEcharts from "echarts-for-react";
+import { capitalize } from "lodash";
 
-const DoughnutChart = ({ height, color = [] }) => {
+const DoughnutChart = ({ height, data, color = [] }) => {
   const theme = useTheme();
 
   const option = {
     legend: {
       show: true,
       itemGap: 20,
-      icon: 'circle',
+      icon: "circle",
       bottom: 0,
       textStyle: {
         color: theme.palette.text.secondary,
         fontSize: 13,
-        fontFamily: 'roboto'
-      }
+        fontFamily: "roboto",
+      },
     },
     tooltip: {
       show: false,
-      trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} ({d}%)'
+      trigger: "item",
+      formatter: "{a} <br/>{b}: {c} ({d}%)",
     },
     xAxis: [
       {
         axisLine: {
-          show: false
+          show: false,
         },
         splitLine: {
-          show: false
-        }
-      }
+          show: false,
+        },
+      },
     ],
     yAxis: [
       {
         axisLine: {
-          show: false
+          show: false,
         },
         splitLine: {
-          show: false
-        }
-      }
+          show: false,
+        },
+      },
     ],
 
     series: [
       {
-        name: 'Traffic Rate',
-        type: 'pie',
-        radius: ['45%', '72.55%'],
-        center: ['50%', '50%'],
+        name: "Traffic Rate",
+        type: "pie",
+        radius: ["45%", "72.55%"],
+        center: ["50%", "50%"],
         avoidLabelOverlap: false,
         hoverOffset: 5,
         stillShowZeroSum: false,
         label: {
           normal: {
             show: false,
-            position: 'center', // shows the description data to center, turn off to show in right side
+            position: "center", // shows the description data to center, turn off to show in right side
             textStyle: {
               color: theme.palette.text.secondary,
               fontSize: 13,
-              fontFamily: 'roboto'
+              fontFamily: "roboto",
             },
-            formatter: '{a}'
+            formatter: "{a}",
           },
           emphasis: {
             show: true,
             textStyle: {
-              fontSize: '14',
-              fontWeight: 'normal'
+              fontSize: "14",
+              fontWeight: "normal",
               // color: "rgba(15, 21, 77, 1)"
             },
-            formatter: '{b} \n{c} ({d}%)'
-          }
+            formatter: capitalize("{b}: {d}%"),
+          },
         },
         labelLine: {
           normal: {
-            show: false
-          }
+            show: false,
+          },
         },
-        data: [
-          {
-            value: 65,
-            name: 'Shares'
-          },
-          {
-            value: 20,
-            name: 'Explore Page'
-          },
-          { value: 15, name: 'Others' }
-        ],
+        data: data
+          ? Object.entries(data).map(([name, value]) => {
+              return { name, value };
+            })
+          : [
+              {
+                value: 65,
+                name: "Shares",
+              },
+              {
+                value: 20,
+                name: "Explore Page",
+              },
+              { value: 15, name: "Others" },
+            ],
         itemStyle: {
           emphasis: {
             shadowBlur: 10,
             shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
   };
 
   return (
@@ -105,7 +110,7 @@ const DoughnutChart = ({ height, color = [] }) => {
       style={{ height: height }}
       option={{
         ...option,
-        color: [...color]
+        color: [...color],
       }}
     />
   );
