@@ -42,6 +42,7 @@ const Analytics = ({ videos, user }) => {
 
   const updateSelected = async (id) => {
     const response = await fetch(url + new URLSearchParams({ id }));
+    console.log(response);
     const json = await response.json();
     setData(json);
   };

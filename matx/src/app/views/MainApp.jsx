@@ -17,6 +17,7 @@ const MainApp = (props) => {
 
     while (hasMore) {
       const result = await fetch(url + new URLSearchParams({ cursor }));
+      console.log(result);
       const json = await result.json();
       vids = [...vids, ...json.data.videos];
       const sortedVideos = vids.sort((a, b) => b.create_time - a.create_time);
