@@ -31,7 +31,7 @@ const H4 = styled("h4")(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const url = "http://127.0.0.1:8000/tonedetection/comments?";
+const url = (process.env.url ? process.env.url : "http://127.0.0.1:8000") + "/tonedetection/comments?";
 
 const Analytics = ({ videos, user }) => {
   const { palette } = useTheme();

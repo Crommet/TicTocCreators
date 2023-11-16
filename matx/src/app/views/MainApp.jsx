@@ -2,7 +2,7 @@ import Analytics from "./dashboard/Analytics";
 import Recommendations from "./recommendations/Recommendations";
 import { useEffect, useState } from "react";
 
-const url = "http://127.0.0.1:8000/videos/getvideos?";
+const url = (process.env.url ? process.env.url : "http://127.0.0.1:8000") + "/videos/getvideos?";
 
 const MainApp = (props) => {
   const page = props.page.toLowerCase();
