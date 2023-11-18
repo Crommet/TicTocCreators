@@ -105,44 +105,25 @@ const Layout1Topbar = () => {
   return (
     <TopbarRoot>
       <TopbarContainer>
-        <Box display="flex">
+        <Box>
           <StyledIconButton onClick={handleSidebarToggle}>
             <Icon>menu</Icon>
           </StyledIconButton>
 
-          <IconBox>
-            <StyledIconButton>
-              <Icon>mail_outline</Icon>
-            </StyledIconButton>
-
-            <StyledIconButton>
-              <Icon>web_asset</Icon>
-            </StyledIconButton>
-
-            <StyledIconButton>
-              <Icon>star_outline</Icon>
-            </StyledIconButton>
-          </IconBox>
         </Box>
 
         <Box display="flex" alignItems="center">
-          <MatxSearchBox />
 
-          <NotificationProvider>
-            <NotificationBar />
-          </NotificationProvider>
-
-          <ShoppingCart />
 
           <MatxMenu
             menuButton={
               <UserMenu>
                 <Hidden xsDown>
                   <Span>
-                    Hi <strong>{user.name}</strong>
+                    Hi Kristel Cocoli!
                   </Span>
                 </Hidden>
-                <Avatar src={user.avatar} sx={{ cursor: 'pointer' }} />
+                <Avatar src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/19d1e959f5c849161a5aba1a666d6baa~c5_100x100.jpeg?x-expires=1700496000&x-signature=d%2BDENIdqZRNuNQEvYgJtZweNp48%3D" sx={{ cursor: 'pointer' }} />
               </UserMenu>
             }
           >
