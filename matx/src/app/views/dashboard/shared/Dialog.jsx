@@ -4,9 +4,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DoughnutChart from "./Doughnut";
-import { useTheme } from "@mui/material";
+import { DialogTitle, useTheme } from "@mui/material";
 
-export default function MaxWidthDialog({ open, setOpen, toneData }) {
+export default function MaxWidthDialog({ open, setOpen, toneData, video }) {
   const [maxWidth, setMaxWidth] = React.useState("sm");
   const { palette } = useTheme();
 
@@ -22,6 +22,9 @@ export default function MaxWidthDialog({ open, setOpen, toneData }) {
     <React.Fragment>
       <Dialog fullWidth maxWidth={maxWidth} open={open} onClose={handleClose}>
         <DialogContent>
+          <DialogTitle>
+            {video.title}
+          </DialogTitle>
           <DoughnutChart
             height={300}
             data={toneData}
@@ -31,6 +34,12 @@ export default function MaxWidthDialog({ open, setOpen, toneData }) {
               palette.primary.light,
             ]}
           ></DoughnutChart>
+          <DialogTitle>
+            Plays: {video.play_count}
+          </DialogTitle>
+          <DialogTitle>
+            Likes: {video.digg_count}
+          </DialogTitle>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
