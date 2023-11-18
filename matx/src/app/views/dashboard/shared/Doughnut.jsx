@@ -79,21 +79,7 @@ const DoughnutChart = ({ height, data, color = [] }) => {
             show: false,
           },
         },
-        data: data
-          ? Object.entries(data).map(([name, value]) => {
-              return { name, value };
-            })
-          : [
-              {
-                value: 65,
-                name: "Shares",
-              },
-              {
-                value: 20,
-                name: "Explore Page",
-              },
-              { value: 15, name: "Others" },
-            ],
+        data: data,
         itemStyle: {
           emphasis: {
             shadowBlur: 10,
