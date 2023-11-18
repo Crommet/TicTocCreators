@@ -82,7 +82,7 @@ const Video = ({ video, index, setSelected }) => {
 
   return (
     <TableRow key={index} hover>
-      <Dialog open={popupOpen} setOpen={setPopupOpen} toneData={toneData} />
+      <Dialog open={popupOpen} setOpen={setPopupOpen} toneData={toneData} video={video}/>
       <TableCell
         colSpan={4}
         align="left"
