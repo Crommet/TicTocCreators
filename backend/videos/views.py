@@ -1,3 +1,4 @@
+from functools import cmp_to_key
 import requests
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -29,3 +30,27 @@ def get_videos(request):
     videos, hasMore, cursor = get_user_videos(
         "kristel99999", request.GET["cursor"])
     return JsonResponse({"data": {"videos": videos, "hasMore": hasMore, "cursor": cursor}})
+
+
+@csrf_exempt
+def get_recommendations(request):
+    users = ["thunder_keck", "smart.easy",
+             "playmortalrite", "coding_nomad", "jacobrosstech"]
+
+    recs = []
+    for user in users:
+        videos, hasMore, cursor = get_user_videos(user, "0")
+        sorted_videos = sorted(videos, key=cmp_to_key(
+            lambda a, b: b["play_count"] - a["play_count"]))
+
+        if len(sorted_videos) >= 3:
+            recs += sorted_videos[0:2]
+        if len(sorted_videos) >= 2:
+            recs += sorted_videos[0:1]
+        if len(sorted_videos) >= 1:
+            recs.append(sorted_videos[0])
+
+    recs = sorted(recs, key=cmp_to_key(
+        lambda a, b: b["play_count"] - a["play_count"]))
+
+    return JsonResponse({"data": {"recs": recs}}, safe=False)
