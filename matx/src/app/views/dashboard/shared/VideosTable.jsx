@@ -4,17 +4,14 @@ import {
   Card,
   Icon,
   IconButton,
-  MenuItem,
-  Select,
   styled,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  useTheme,
 } from "@mui/material";
-import { Paragraph } from "app/components/Typography";
+import { Paragraph, H4 } from "app/components/Typography";
 import { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -133,13 +130,25 @@ const VideosTable = (props) => {
     <Card elevation={3} sx={{ pt: "20px", mb: 3 }}>
       <CardHeader>
         <Title>recent videos</Title>
-        <div>
-          <IconButton onClick={() => props.updateCursor("back")}>
-            <ArrowBackIcon color="primary" />
-          </IconButton>
-          <IconButton onClick={() => props.updateCursor("front")}>
-            <ArrowForwardIcon color="primary" />
-          </IconButton>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <H4>
+            {(props.cursor + 1) * props.size} / {props.videos.length}
+          </H4>
+          <div>
+            <IconButton onClick={() => props.updateCursor("back")}>
+              <ArrowBackIcon color="primary" />
+            </IconButton>
+            <IconButton onClick={() => props.updateCursor("front")}>
+              <ArrowForwardIcon color="primary" />
+            </IconButton>
+          </div>
         </div>
       </CardHeader>
 
