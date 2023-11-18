@@ -1,13 +1,5 @@
 import { Card, Grid, styled, useTheme, Fab, Icon } from '@mui/material';
 import { Fragment } from 'react';
-import DoughnutChart from './shared/Doughnut';
-import StatCards2 from './shared/StatCards2';
-import TopSellingTable from './shared/TopSellingTable';
-import LineChart from '../dashboard/shared/LineChart';
-import AppButton from '../material-kit/buttons/AppButton';
-import SimpleCheckbox from '../material-kit/checkbox/SimpleCheckbox';
-import AppCheckbox from '../material-kit/checkbox/AppCheckbox';
-import LabelledCheckbox from '../material-kit/checkbox/LabelledCheckbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useEffect } from 'react';
