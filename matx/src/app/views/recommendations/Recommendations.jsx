@@ -39,9 +39,9 @@ const Recommendations = ({ recs }) => {
         <br></br>
         <Grid container spacing={3}>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            {recs.map(() => (
+            {recs.map((video) => (
               <div>
-                <VideoImage /> <br></br>
+                <VideoImage video={video} /> <br></br>
               </div>
             ))}
           </Grid>

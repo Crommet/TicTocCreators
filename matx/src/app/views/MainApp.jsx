@@ -1,3 +1,4 @@
+import Loading from "app/components/MatxLoading";
 import Analytics from "./dashboard/Analytics";
 import Recommendations from "./recommendations/Recommendations";
 import { useEffect, useState } from "react";
@@ -65,6 +66,9 @@ const MainApp = (props) => {
   }, []);
 
   if (page === "recommendations") {
+    if (recs.length == 0) {
+      return <Loading />;
+    }
     return <Recommendations recs={recs} />;
   }
 

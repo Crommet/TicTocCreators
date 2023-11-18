@@ -13,7 +13,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function ComplexGrid() {
+export default function ComplexGrid({ video }) {
   return (
     <Paper
       sx={{
@@ -45,10 +45,10 @@ export default function ComplexGrid() {
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                Video Name
+                {video.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Creator
+                {video.author.nickname}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Description

@@ -45,9 +45,9 @@ def get_recommendations(request):
 
         if len(sorted_videos) >= 3:
             recs += sorted_videos[0:2]
-        if len(sorted_videos) >= 2:
+        elif len(sorted_videos) >= 2:
             recs += sorted_videos[0:1]
-        if len(sorted_videos) >= 1:
+        elif len(sorted_videos) >= 1:
             recs.append(sorted_videos[0])
 
     recs = sorted(recs, key=cmp_to_key(
