@@ -6,6 +6,26 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import { Box } from "@mui/material";
 
+function nFormatter(num, digits) {
+  if (num === null) return null;
+
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "K" },
+    { value: 1e6, symbol: "M" },
+  ];
+  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var item = lookup
+    .slice()
+    .reverse()
+    .find(function (item) {
+      return num >= item.value;
+    });
+  return item
+    ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
+    : "0";
+}
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -28,17 +48,20 @@ export default function ComplexGrid({ video }) {
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 100, height: 100 }}>
+            <a href={`https://www.tiktok.com/@${video.author.unique_id}/video/${video.video_id}`}>
             <Img
               alt="Image"
-              src="https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/ae3cc911a70b487496875ff7ff1f95f2_1699738188?x-expires=1699826400&x-signature=KUbnypkDJm1hdPoZ3lKebZ4X4cs%3D&s=PUBLISH&se=false&sh=&sc=dynamic_cover&l=2023111122134969FDFCB8066385BF9243"
+              src={video.cover}
               component="img"
               sx={{
-                height: 128,
-                width: 72,
+                height: 98,
+                width: 60,
+                borderRadius: "5%",
                 maxHeight: { xs: 233, md: 167 },
                 maxWidth: { xs: 350, md: 250 },
               }}
             />
+            </a>
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -50,14 +73,14 @@ export default function ComplexGrid({ video }) {
               <Typography variant="body2" gutterBottom>
                 {video.author.nickname}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Description
-              </Typography>
+              {<Typography variant="body2" color="text.secondary">
+                Views: {nFormatter(video.play_count, 2) }
+              </Typography>}
+              {<Typography sx={{ cursor: "pointer" }} variant="body2" color="text.secondary">
+                Likes {nFormatter(video.digg_count, 2)}
+              </Typography>}
             </Grid>
             <Grid item>
-              <Typography sx={{ cursor: "pointer" }} variant="body2">
-                Categories
-              </Typography>
             </Grid>
           </Grid>
           <Grid item>
