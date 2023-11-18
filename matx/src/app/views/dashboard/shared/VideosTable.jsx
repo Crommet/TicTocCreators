@@ -59,14 +59,25 @@ const Small = styled("small")(({ bgcolor }) => ({
   boxShadow: "0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24)",
 }));
 
+const url =
+  "https://tiktokcreators-production.up.railway.app/tonedetection/comments?";
+
 const Video = ({ video, index, setSelected }) => {
+  const [toneData, setToneData] = useState(null);
   const [popupOpen, setPopupOpen] = useState(false); // popup starts out closed
+
+  const getData = async (id) => {
+    const response = await fetch(url + new URLSearchParams({ id }));
+    const json = await response.json();
+    setToneData(json);
+  };
 
   // popupOpen = true; - python / regular javascript implementation (DO NOT USE THIS)
   // setPopupOpen(true); - react implementation (USE THIS)
 
   function openPopup() {
     setPopupOpen(true);
+    getData(video.video_id);
   }
 
   // this is the kind of setup that you might come across
@@ -74,7 +85,7 @@ const Video = ({ video, index, setSelected }) => {
 
   return (
     <TableRow key={index} hover>
-      <Dialog open={popupOpen} setOpen={setPopupOpen} />
+      <Dialog open={popupOpen} setOpen={setPopupOpen} toneData={toneData} />
       <TableCell
         colSpan={4}
         align="left"
@@ -108,7 +119,6 @@ const Video = ({ video, index, setSelected }) => {
         <IconButton
           onClick={() => {
             openPopup();
-            setSelected(video.video_id);
           }}
         >
           <Icon color="primary">expand</Icon>
@@ -119,11 +129,6 @@ const Video = ({ video, index, setSelected }) => {
 };
 
 const VideosTable = (props) => {
-  const { palette } = useTheme();
-  const bgError = palette.error.main;
-  const bgPrimary = palette.primary.main;
-  const bgSecondary = palette.secondary.main;
-
   return (
     <Card elevation={3} sx={{ pt: "20px", mb: 3 }}>
       <CardHeader>
@@ -162,6 +167,7 @@ const VideosTable = (props) => {
               .slice(props.cursor * props.size, (props.cursor + 1) * props.size)
               .map((video, index) => (
                 <Video
+                  key={index}
                   video={video}
                   index={index}
                   setSelected={props.setSelected}
