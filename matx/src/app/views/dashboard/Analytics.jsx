@@ -4,7 +4,6 @@ import StatCards2 from "./shared/StatCards2";
 import VideosTable from "./shared/VideosTable";
 import LineChart from "./shared/LineChart";
 import { useEffect, useState } from "react";
-import DoughnutChart from "./shared/Doughnut";
 
 const ContentBox = styled("div")(({ theme }) => ({
   margin: "30px",
@@ -31,21 +30,12 @@ const H4 = styled("h4")(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const url = "https://tiktokcreators-production.up.railway.app/tonedetection/comments?";
-
 const Analytics = ({ videos, user }) => {
   const { palette } = useTheme();
 
   const [data, setData] = useState(null);
   const [cursor, setCursor] = useState(0);
   const size = 20;
-
-  const updateSelected = async (id) => {
-    const response = await fetch(url + new URLSearchParams({ id }));
-    console.log(response);
-    const json = await response.json();
-    setData(json);
-  };
 
   const updateCursor = (direction) => {
     if (direction == "back" && cursor > 0) {
@@ -75,7 +65,6 @@ const Analytics = ({ videos, user }) => {
           <Grid item lg={8} md={8} sm={12} xs={12}>
             <VideosTable
               videos={videos}
-              setSelected={updateSelected}
               cursor={cursor}
               updateCursor={updateCursor}
               size={size}
@@ -84,15 +73,6 @@ const Analytics = ({ videos, user }) => {
 
           <Grid item lg={4} md={4} sm={12} xs={12}>
             <StatCards2 user={user} />
-            <DoughnutChart
-              height={300}
-              data={data}
-              color={[
-                palette.primary.dark,
-                palette.primary.main,
-                palette.primary.light,
-              ]}
-            />
             <br />
           </Grid>
         </Grid>

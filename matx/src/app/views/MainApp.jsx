@@ -2,7 +2,8 @@ import Analytics from "./dashboard/Analytics";
 import Recommendations from "./recommendations/Recommendations";
 import { useEffect, useState } from "react";
 
-const url = "https://tiktokcreators-production.up.railway.app/videos/getvideos?";
+const url =
+  "https://tiktokcreators-production.up.railway.app/videos/getvideos?";
 
 const MainApp = (props) => {
   const page = props.page.toLowerCase();
@@ -17,7 +18,6 @@ const MainApp = (props) => {
 
     while (hasMore) {
       const result = await fetch(url + new URLSearchParams({ cursor }));
-      console.log(result);
       const json = await result.json();
       vids = [...vids, ...json.data.videos];
       const sortedVideos = vids.sort((a, b) => b.create_time - a.create_time);
