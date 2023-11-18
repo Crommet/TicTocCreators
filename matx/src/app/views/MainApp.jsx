@@ -2,16 +2,17 @@ import Analytics from "./dashboard/Analytics";
 import Recommendations from "./recommendations/Recommendations";
 import { useEffect, useState } from "react";
 
-const url =
-  "https://tiktokcreators-production.up.railway.app/videos/getvideos?";
-
 const MainApp = (props) => {
   const page = props.page.toLowerCase();
 
   const [videos, setVideos] = useState([]);
   const [user, setUser] = useState(null);
+  const [recs, setRecs] = useState([]);
 
   async function getVideos() {
+    const url =
+      "https://tiktokcreators-production.up.railway.app/videos/getvideos?";
+
     let hasMore = true;
     let cursor = "0";
     let vids = [];
@@ -49,13 +50,25 @@ const MainApp = (props) => {
     setUser(json);
   }
 
+  const getRecommendations = async () => {
+    const url =
+      "https://tiktokcreators-production.up.railway.app/videos/getrecs";
+    console.log("fetching...");
+    const result = await fetch(url);
+    console.log(result);
+    const json = await result.json();
+    console.log(json);
+    setRecs(json.data.recs);
+  };
+
   useEffect(() => {
     getVideos();
     getUser();
+    getRecommendations();
   }, []);
 
   if (page === "recommendations") {
-    return <Recommendations videos={videos} />;
+    return <Recommendations recs={recs} />;
   }
 
   return <Analytics videos={videos} user={user} />;

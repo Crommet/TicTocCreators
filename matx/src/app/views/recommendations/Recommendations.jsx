@@ -31,7 +31,7 @@ const H4 = styled("h4")(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Recommendations = () => {
+const Recommendations = ({ recs }) => {
   return (
     <Fragment>
       <ContentBox className="analytics">
@@ -39,7 +39,7 @@ const Recommendations = () => {
         <br></br>
         <Grid container spacing={3}>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            {[1, 2, 3].map(() => (
+            {recs.map(() => (
               <div>
                 <VideoImage /> <br></br>
               </div>
