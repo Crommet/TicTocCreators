@@ -53,11 +53,8 @@ const MainApp = (props) => {
   const getRecommendations = async () => {
     const url =
       "https://tiktokcreators-production.up.railway.app/videos/getrecs";
-    console.log("fetching...");
     const result = await fetch(url);
-    console.log(result);
     const json = await result.json();
-    console.log(json);
     setRecs(json.data.recs);
   };
 

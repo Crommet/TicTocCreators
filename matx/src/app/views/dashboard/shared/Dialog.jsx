@@ -25,45 +25,37 @@ export default function MaxWidthDialog({ open, setOpen, toneData, video }) {
     surprise: "#ECF307",
     fear: "#7B3FD5",
     other: "#7A7A7A",
-    "Please wait...": "#3C0985" 
-  } 
-  const tonearray = toneData? Object.entries(toneData).map(([name, value]) => {
-    return { name, value };
-  }): [
-    {
-      value: 100,
-      name: "Please wait...",
-    },
-  ]
-  const colors = tonearray.map(({
-    name, value
-  }) => {
-    return colormap[name]
-  })
-  console.log(tonearray);
-  console.log(colors);
+    "Please wait...": "#3C0985",
+  };
+  const tonearray = toneData
+    ? Object.entries(toneData).map(([name, value]) => {
+        return { name, value };
+      })
+    : [
+        {
+          value: 100,
+          name: "Please wait...",
+        },
+      ];
+  const colors = tonearray.map(({ name, value }) => {
+    return colormap[name];
+  });
 
   return (
     <React.Fragment>
       <Dialog fullWidth maxWidth={maxWidth} open={open} onClose={handleClose}>
         <DialogContent>
           <DialogTitle>
-          {new Date(video.create_time * 1000).toDateString()}
+            {new Date(video.create_time * 1000).toDateString()}
           </DialogTitle>
-          <DialogTitle>
-            {video.title}
-          </DialogTitle>
+          <DialogTitle>{video.title}</DialogTitle>
           <DoughnutChart
             height={300}
             data={tonearray}
-            color = {colors}
+            color={colors}
           ></DoughnutChart>
-          <DialogTitle>
-            Plays: {video.play_count}
-          </DialogTitle>
-          <DialogTitle>
-            Likes: {video.digg_count}
-          </DialogTitle>
+          <DialogTitle>Plays: {video.play_count}</DialogTitle>
+          <DialogTitle>Likes: {video.digg_count}</DialogTitle>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
